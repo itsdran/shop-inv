@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title> Inventory Management </title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!--  ICON -->
+    <link rel="icon" href="assets/img/logo-w.png" type="image/x-icon"/>
+
+	<!-- Datatables CSS -->
+	<link rel="stylesheet" type="text/css" href="vendor/DataTables/datatables.css">
+
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<style>
+	body {
+		background-color: #dbe6fd;
+	}
+
+	/* Suggestion list styles */
+	ul.suggestionsList {
+		background-color: #eee;
+		cursor: pointer;
+		border-radius: 3px;
+	
+	}
+		
+	ul.suggestionsList li {
+		padding: 12px;
+		
+	}
+
+	/* End Suggestion list styles */
+	.customListDivWidth{
+	position: absolute;
+	z-index:500;
+	width: 100%;
+	}
+
+	.footer {
+		position: static;
+		background-color: #c12a5e;
+		margin-top: 90px;
+		margin-bottom: 0px;
+		width: 100%;
+		height: 60px;
+		/* Set the fixed height of the footer here */
+		line-height: 60px;
+		/* Vertically center the text there */
+	}
+
+	.nav2 {
+		background-color: #c12a5e;
+		height: 85px;
+		width: 100%;
+		position: static;
+		float: right;
+		display: inline-block;
+	}
+
+	#bodyContainer {
+		width: 70%;
+		background-repeat: no-repeat;
+		display: inline;
+		background-color: blue;
+		float: right;
+	}
+
+	#ulsidebar {
+		top: 40px;
+		bottom: 50px;
+		background-color: #c12a5e;
+		width: 100%;
+		height: 600px;
+		position: relative;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		font-size: 18px;
+		list-style-type: none;
+		color: white;
+		padding: 0;
+		overflow: auto;
+		-moz-border-radius: 30px;
+		-webkit-border-radius: 30px;
+		border-radius: 30px;
+	}
+
+	#content {}
+
+	.sideLi .navs {
+		height: 60px;
+		display: block;
+		color: white;
+		padding: 20px;
+		text-decoration: none;
+	}
+
+	.sideLi .current {
+		height: 60px;
+		display: block;
+		color: white;
+		padding: 20px;
+		text-decoration: none;
+		background-color: #f93783
+	}
+
+
+
+
+	.sideLi a.oms:active {
+		background-color: #f93783;
+		color: white;
+	}
+
+	.sideLi a:hover:not(.active) {
+		background-color: white;
+		color: #293B5F;
+	}
+
+	#mainPanel {
+		top: 40px;
+		background-color: white;
+		width: 97%;
+		right: 0px;
+		bottom: 0px;
+		float: right;
+		height: 600px;
+		position: relative;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+
+	.row {
+		margin: auto;
+		width: 100%;
+	}
+
+	.column1 {
+		width: 260px;
+		margin-left: 30px;
+	}
+
+	.column2 {
+		width: 75%;
+		margin-left: 30px;
+	}
+
+	.column3 {
+		width: 40%;
+
+	}
+
+	.column4 {
+		width: 58%;
+		margin-left: 2%;
+
+	}
+
+	h2 {
+		margin-top: 30px;
+		color: #c12a5e;
+		font-family: "Times New Roman", Times, serif;
+	}
+
+	td {
+		height: 30px;
+		color: white;
+		text-align: left;
+		font-size: 13px;
+	}
+
+	.c1 {
+		width: 25%;
+	}
+
+	.c2 .c4 {
+		width: 5%;
+	}
+
+	.c3 {
+		width: 35%;
+	}
+
+	.c5 .c6 .c7 {
+		width: 10%;
+	}
+
+	.viewInfoDiv {
+		margin: auto;
+		border: 1px solid #47597E;
+		width: 90%;
+		height: 490px;
+	}
+
+	.viewInfoBg {
+		width: 100%;
+		height: 450px;
+		background-color: #B2AB8C;
+		float: right;
+	}
+
+	.font {
+		color: black;
+		font-family: Serif;
+		font-size: 18px;
+	}
+
+	.wrapper {
+		width: 1500px;
+	}
+
+	table tr td:last-child {
+		width: 120px;
+	}
+	.roundContainer{
+	border-radius: 35px; 
+	background-color: white; 
+	margin-top: 40px; 
+	padding-bottom: 40px; 
+	}
+
+</style>
+<script>
+	$(document).ready(function() {
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+
+	$(document).ready(function() {
+		$('#dtDynamicVerticalScrollExample').DataTable({
+			"scrollY": "400px",
+			"scrollCollapse": true,
+		});
+		$('.dataTables_length').addClass('bs-select');
+	});
+</script>
